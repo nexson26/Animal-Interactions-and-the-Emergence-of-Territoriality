@@ -1,0 +1,145 @@
+patches-own [visit-pink visit-sky visit-lime ticks-as-pink ticks-as-sky ticks-as-lime visit-count-red visit-count-blue visit-count-green]
+globals [global-tick]
+to setup
+  clear-all
+  reset-ticks
+  set global-tick 0
+  init-grid
+  set-patch-size 33
+  resize-world 0 24 0 20
+  create-turtles num-pop [
+    let new-patch one-of patches with [not any? turtles-here]
+    ifelse who = 0 [
+      set color red
+      set heading 180
+    ] [
+      ifelse who = 1 [
+        set color blue
+        set heading 90
+      ] [
+        set color green
+        set heading 0
+      ]
+    ]
+    move-to new-patch
+  ]
+end
+
+to init-grid
+  ask patches [
+    set pcolor white
+    set visit-pink 0
+    set visit-sky 0
+    set visit-lime 0
+    set visit-count-red 0
+    set visit-count-blue 0
+    set visit-count-green 0
+  ]
+end
+
+
+to go
+  ask turtles [
+    if color = red [
+      if ([pcolor] of patch-ahead 1 = white) or ([pcolor] of patch-ahead 1 = pink) [
+        forward 0.5
+        set pcolor pink
+        set ticks-as-pink 0 ; Reset ticks-as-pink when patch turns pink
+        ask patch-here [set visit-count-red visit-count-red + 1]
+      ]
+      if ([pcolor] of patch-ahead 1 = sky) or ([pcolor] of patch-ahead 1 = lime) [
+        let choice random 3
+        ifelse choice = 0 [left 90]
+        [ifelse choice = 1 [right 90]
+         [if choice = 2 [left 180]]
+        ]
+      ]
+      let choice random 4
+      if choice = 0 [left 90]
+      if choice = 1 [right 90]
+      if choice = 2 [right 180]
+    ]
+
+   if color = blue [
+      if ([pcolor] of patch-ahead 1 = white) or ([pcolor] of patch-ahead 1 = sky) [
+        forward 1
+        set pcolor sky
+        set ticks-as-sky 0
+        ask patch-here [set visit-count-blue visit-count-blue + 1]
+      ]
+      if ([pcolor] of patch-ahead 1 = pink ) or ([pcolor] of patch-ahead 1 = sky) [
+        let choice random 3
+        ifelse choice = 0 [left 90]
+        [ifelse choice = 1 [right 90]
+         [if choice = 2 [left 180]]
+        ]
+      ]
+      let choice random 4
+      if choice = 0 [left 90]
+      if choice = 1 [right 90]
+      if choice = 2 [right 180]
+    ]
+
+   if color = green [
+      if ([pcolor] of patch-ahead 1 = white) or ([pcolor] of patch-ahead 1 = lime) [
+        forward 1
+        set pcolor lime
+        set ticks-as-lime 0
+        ask patch-here [set visit-count-green visit-count-green + 1]
+      ]
+      if ([pcolor] of patch-ahead 1 = pink) or ([pcolor] of patch-ahead 1 = sky) [
+        let choice random 3
+        ifelse choice = 0 [left 90]
+        [ifelse choice = 1 [right 90]
+         [if choice = 2 [left 180]]
+        ]
+      ]
+      let choice random 4
+      if choice = 0 [left 90]
+      if choice = 1 [right 90]
+      if choice = 2 [right 180]
+    ]
+  ]
+
+    ; Increase ticks-as-pink for all pink patches
+  ask patches with [pcolor = pink] [set ticks-as-pink ticks-as-pink + 1]
+  ask patches with [pcolor = sky] [set ticks-as-sky ticks-as-sky + 1]
+  ask patches with [pcolor = lime] [set ticks-as-lime ticks-as-lime + 1]
+
+  ; Check and change color of patches that have been pink for 50 ticks
+  ask patches with [pcolor = pink and ticks-as-pink = 1000] [set pcolor white]
+  ask patches with [pcolor = sky and ticks-as-sky = 500] [set pcolor white]
+  ask patches with [pcolor = lime and ticks-as-lime = 200] [set pcolor white]
+
+    if ticks mod 100 = 0 [ report-most-visited-by-color ] ; Every 100 ticks, report most visited patches
+
+  tick
+  wait 0.1
+end
+
+to report-most-visited-by-color
+  let max-visited-red max [visit-count-red] of patches
+  let max-visited-blue max [visit-count-blue] of patches
+  let max-visited-green max [visit-count-green] of patches
+
+  ask patches [
+    if visit-count-red = max-visited-red [
+      show (word "Red turtles visit Patch at " pxcor ", " pycor " most frequently: " visit-count-red " times.")
+    ]
+    if visit-count-blue = max-visited-blue [
+      show (word "Blue turtles visit Patch at " pxcor ", " pycor " most frequently: " visit-count-blue " times.")
+    ]
+    if visit-count-green = max-visited-green [
+      show (word "Green turtles visit Patch at " pxcor ", " pycor " most frequently: " visit-count-green " times.")
+    ]
+  ]
+end
+
+to export-data
+  file-open "/Users/nexsoneng/Desktop/patch-data.txt"
+  file-print "pxcor pycor visit-count-red visit-count-blue visit-count-green pcolor"
+  ask patches [
+    file-print (word pxcor " " pycor " " visit-count-red " " visit-count-blue " " visit-count-green " " pcolor)
+  ]
+  file-close
+end
