@@ -1,6 +1,6 @@
-This is R-program code.
+##This is R-program code. 
 
-data <- read.table("##read data here##", header = TRUE)
+data <- read.table("##patch_data.txt##", header = TRUE)
 library(ggplot2)
 library(gridExtra)
 # Contour plot (red visit counts)
