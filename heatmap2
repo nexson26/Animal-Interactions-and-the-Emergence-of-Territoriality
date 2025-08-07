@@ -1,0 +1,34 @@
+data <- read.table("##read data here##", header = TRUE)
+library(ggplot2)
+library(gridExtra)
+# Contour plot (red visit counts)
+contourplot_red <- ggplot(data, aes(x = pxcor, y = pycor, z = visit.count.red)) +
+  geom_contour_filled() +
+  labs(title = "Utilization Distribution (Red)",
+       x = "X-coordinate",
+       y = "Y-coordinate",
+       fill = "Visit Count (Red)") +
+  theme_minimal()
+
+# Contour plot (blue visit counts)
+contourplot_blue <- ggplot(data, aes(x = pxcor, y = pycor, z = visit.count.blue)) +
+  geom_contour_filled() +
+  labs(title = "Utilization Distribution (Blue)",
+       x = "X-coordinate",
+       y = "Y-coordinate",
+       fill = "Visit Count (Blue)") +
+  theme_minimal()
+
+# Contour plot (green visit counts)
+contourplot_green <- ggplot(data, aes(x = pxcor, y = pycor, z = visit.count.green)) +
+  geom_contour_filled() +
+  labs(title = "Utilization Distribution (Green)",
+       x = "X-coordinate",
+       y = "Y-coordinate",
+       fill = "Visit Count (Green)") +
+  theme_minimal()
+
+# Combine and print
+combined_plot <- grid.arrange(contourplot_red, contourplot_blue, contourplot_green, ncol = 3)
+print(combined_plot)
+## 5580=time
