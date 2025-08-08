@@ -13,7 +13,7 @@ Tools: R-program and Netlogo. This is the website to download NetLogo: https://c
 
 The file "project fig1.nlogo" is for me to teach my audience what T_AS is and how it performs. You can skip it.
 
-1. run the file "fig1 (modelling of 3 population)" to simulate the run in NetLogo. My model is lack of T_BR parameter, so I mentioned that and let audience know how it affect the outcome.
+1. Run the file "fig1 (modelling of 3 population)" to simulate the run in NetLogo. However, my model lacks the T_BR parameter, which I explained to the audience, highlighting how its absence affects the outcome.
 
 2. After it simulates for some time, export the data. Your data format should be similar to the file "patch data.txt" above.
 
