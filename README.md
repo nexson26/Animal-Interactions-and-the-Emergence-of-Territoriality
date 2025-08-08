@@ -14,5 +14,5 @@ The file "project fig1.nlogo" is for me to teach my audience what T_AS is and ho
 
 3. After exporting the data, run it in the file "heatmap2". After running "heatmap2" in R, you should get the utilization distribution showing the visit count of Vulpes vulpes within a territory.
 
-4. The "slide (.key)" file is my slide deck. There are no details on it because I prefer clean slides and like to explain the details myself.
+4. The "slide (.key)" file is my slide deck. There are no details on it because I prefer clean slides and like to explain the details myself. [(click slide(.key) then click BALME ]
 
