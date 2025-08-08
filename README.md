@@ -9,11 +9,11 @@ https://doi.org/10.1371/journal.pcbi.1002008
 
 How to use:
 
-Tools: R-program and Netlogo
+Tools: R-program and Netlogo. This is the website to download NetLogo: https://ccl.northwestern.edu/netlogo/.
 
 The file "project fig1.nlogo" is for me to teach my audience what T_AS is and how it performs. You can skip it.
 
-1. run the file "fig1 (modelling of 3 population)" to simulate the run in NetLogo. This is the website to download NetLogo: https://ccl.northwestern.edu/netlogo/.
+1. run the file "fig1 (modelling of 3 population)" to simulate the run in NetLogo. My model is lack of T_BR parameter, so I mentioned that and let audience know how it affect the outcome.
 
 2. After it simulates for some time, export the data. Your data format should be similar to the file "patch data.txt" above.
 
