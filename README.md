@@ -4,6 +4,8 @@ https://doi.org/10.1371/journal.pcbi.1002008
 
 (Credit to the original authors and PLOS Computational Biology)
 
+Tools: R-program and Netlogo
+
 How to use:
 
 The file "project fig1.nlogo" is for me to teach my audience what T_AS is and how it performs. You can skip it.
